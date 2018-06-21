@@ -15,10 +15,12 @@ const Enemy = function (x, y, speed) {
 
 
 // Loading the image of the Player
-const Player = function (x, y) {
+const Player = function (x, y, sprite, score) {
   this.sprite = 'images/char-boy.png';
   this.x = x;
   this.y = y;
+    //set initial score
+  this.score = 0;;
 };
 
 // The update method for the Player
@@ -41,13 +43,22 @@ Player.prototype.handleInput = function (keyPress) {
   } else if (keyPress === 'up' && this.y > 50) {
     this.y -= 80;
   }
-
   // When Player reaches water the game resets by moving the Player back to initial location
-  if (this.y < 101) {
-    setTimeout(function () {
-      player.x = 203;
-      player.y = 380;
-    }, 500);
+  if (this.y === -20) {
+    this.score = this.score + 1;
+    player.x = 203;
+    player.y = 380;
+
+    // Add score that resets after winning(touching the water) 5 times
+    document.getElementById("score").innerHTML = this.score;
+    if (this.score === 5) {
+      document.getElementById("score").innerHTML = 0;
+      //sweet alert poping up with a congratulation message
+      swal("Good job!", "You touched the water 5 times!", "success");
+      if (this.score = 0) {
+        this.score = this.score + 1
+      }
+    }
   }
 };
 
@@ -68,7 +79,7 @@ Enemy.prototype.update = function (dt) {
 
   // Length of Player and sprite for colision
   // Send the Player to the initial location
-  if (player.x < this.x + 90 && player.x + 90 > this.x && player.y < this.y + 60 && 60 + player.y > this.y) {
+  if (player.x < this.x + 30 && player.x + 30 > this.x && player.y < this.y + 60 && 60 + player.y > this.y) {
     player.x = 203;
     player.y = 380;
   }
