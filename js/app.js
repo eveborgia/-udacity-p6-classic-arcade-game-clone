@@ -1,3 +1,8 @@
+(function () {
+  'use strict';
+  // this function is strict...
+}());
+
 const allEnemies = [];
 const enemyLocation = [58, 140, 225];
 
@@ -20,7 +25,7 @@ const Player = function (x, y, sprite, score) {
   this.x = x;
   this.y = y;
     //set initial score
-  this.score = 0;;
+  this.score = 0;
 };
 
 // The update method for the Player
@@ -55,9 +60,7 @@ Player.prototype.handleInput = function (keyPress) {
       document.getElementById("score").innerHTML = 0;
       //sweet alert poping up with a congratulation message
       swal("Good job!", "You touched the water 5 times!", "success");
-      if (this.score = 0) {
-        this.score = this.score + 1
-      }
+      this.score = 0;
     }
   }
 };
@@ -79,7 +82,10 @@ Enemy.prototype.update = function (dt) {
 
   // Length of Player and sprite for colision
   // Send the Player to the initial location
-  if (player.x < this.x + 30 && player.x + 30 > this.x && player.y < this.y + 60 && 60 + player.y > this.y) {
+  if (player.x < this.x + 30 &&
+    player.x + 30 > this.x &&
+    player.y < this.y + 60 &&
+    60 + player.y > this.y) {
     player.x = 203;
     player.y = 380;
   }
